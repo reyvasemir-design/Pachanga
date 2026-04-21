@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Psicología UCC — Asesoramiento Académico</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#F7F4EF;--ink:#1A1814;--ink-light:#4A4640;--ink-muted:#8A8580;--accent:#2E5C3A;--accent-light:#E8F0EA;--warm:#C4784A;--warm-light:#F5EDE5;--border:rgba(26,24,20,0.12);--border-strong:rgba(26,24,20,0.22);--radius:12px;--radius-sm:6px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);min-height:100vh}
+nav{position:sticky;top:0;z-index:100;background:rgba(247,244,239,0.94);backdrop-filter:blur(12px);border-bottom:0.5px solid var(--border);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:64px}
+.nav-brand{display:flex;align-items:center;gap:10px}
+.nav-logo{width:36px;height:36px;background:var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center}
+.nav-title{font-family:'DM Serif Display',serif;font-size:17px;color:var(--ink);line-height:1.2}
+.nav-title span{display:block;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:400;color:var(--ink-muted);text-transform:uppercase;letter-spacing:.08em}
+.nav-links{display:flex;align-items:center;gap:4px;list-style:none}
+.nav-links a{font-size:14px;font-weight:400;color:var(--ink-light);text-decoration:none;padding:6px 12px;border-radius:var(--radius-sm);transition:all .15s}
+.nav-links a:hover{background:var(--border);color:var(--ink)}
+.nav-links a.active{color:var(--accent);font-weight:500}
+.nav-pachin{background:var(--accent);color:white!important;border-radius:20px!important;padding:7px 16px!important;font-weight:500!important;font-size:13px!important;display:flex!important;align-items:center;gap:6px}
+.nav-pachin:hover{opacity:.85;background:var(--accent)!important}
+.pachin-dot{width:7px;height:7px;background:#7AE896;border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.page{display:none}.page.active{display:block}
+.hero{padding:80px 2rem 60px;max-width:900px;margin:0 auto}
+.hero-tag{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);background:var(--accent-light);padding:5px 12px;border-radius:20px;margin-bottom:24px}
+.hero h1{font-family:'DM Serif Display',serif;font-size:clamp(42px,6vw,72px);line-height:1.05;color:var(--ink);margin-bottom:20px;max-width:700px}
+.hero h1 em{font-style:italic;color:var(--accent)}
+.hero p{font-size:18px;font-weight:300;color:var(--ink-light);line-height:1.7;max-width:560px;margin-bottom:40px}
+.hero-ctas{display:flex;gap:12px;flex-wrap:wrap}
+.btn-primary{background:var(--ink);color:var(--cream);border:none;padding:13px 24px;border-radius:30px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;cursor:pointer;transition:opacity .15s;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+.btn-primary:hover{opacity:.82}
+.btn-secondary{background:transparent;color:var(--ink);border:1px solid var(--border-strong);padding:13px 24px;border-radius:30px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:400;cursor:pointer;transition:all .15s;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+.btn-secondary:hover{border-color:var(--ink);background:rgba(26,24,20,.04)}
+.stats-bar{max-width:900px;margin:0 auto 60px;padding:0 2rem;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;border:0.5px solid var(--border);border-radius:var(--radius);overflow:hidden;background:var(--border)}
+.stat-item{background:var(--cream);padding:24px;text-align:center}
+.stat-number{font-family:'DM Serif Display',serif;font-size:36px;color:var(--ink);line-height:1;margin-bottom:4px}
+.stat-label{font-size:13px;color:var(--ink-muted);font-weight:400}
+section{max-width:900px;margin:0 auto;padding:0 2rem 60px}
+.section-header{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:28px;padding-bottom:16px;border-bottom:0.5px solid var(--border)}
+.section-title{font-family:'DM Serif Display',serif;font-size:28px;color:var(--ink)}
+.section-link{font-size:13px;color:var(--ink-muted);text-decoration:none;cursor:pointer;transition:color .15s}
+.section-link:hover{color:var(--accent)}
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.card{background:white;border:0.5px solid var(--border);border-radius:var(--radius);padding:24px;transition:border-color .15s,transform .15s}
+.card:hover{border-color:var(--border-strong);transform:translateY(-2px)}
+.card-icon{width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:14px;font-size:18px}
+.card-icon.green{background:var(--accent-light)}.card-icon.warm{background:var(--warm-light)}.card-icon.blue{background:#E8EEF5}
+.card h3{font-size:15px;font-weight:500;color:var(--ink);margin-bottom:6px}
+.card p{font-size:13px;color:var(--ink-muted);line-height:1.6}
+.card-tag{display:inline-block;font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:4px;margin-bottom:8px}
+.tag-green{background:var(--accent-light);color:var(--accent)}.tag-warm{background:var(--warm-light);color:var(--warm)}.tag-blue{background:#E8EEF5;color:#2A4A6E}
+.blog-list{display:flex;flex-direction:column;gap:1px;background:var(--border);border:0.5px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.blog-item{background:white;padding:22px 24px;display:flex;align-items:flex-start;gap:20px;cursor:pointer;transition:background .15s;text-decoration:none;color:inherit}
+.blog-item:hover{background:var(--cream)}
+.blog-date{min-width:48px;text-align:center}
+.blog-date .day{font-family:'DM Serif Display',serif;font-size:26px;line-height:1;color:var(--ink)}
+.blog-date .month{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-muted)}
+.blog-content{flex:1}
+.blog-content h3{font-size:15px;font-weight:500;color:var(--ink);margin-bottom:4px}
+.blog-content p{font-size:13px;color:var(--ink-muted);line-height:1.5}
+.blog-arrow{font-size:18px;color:var(--ink-muted);align-self:center;transition:transform .15s}
+.blog-item:hover .blog-arrow{transform:translateX(4px)}
+.year-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:24px}
+.year-tab{padding:7px 16px;border-radius:20px;font-size:13px;cursor:pointer;border:0.5px solid var(--border);background:white;color:var(--ink-light);transition:all .15s}
+.year-tab.active{background:var(--ink);color:var(--cream);border-color:var(--ink);font-weight:500}
+.year-tab:hover:not(.active){border-color:var(--ink);color:var(--ink)}
+.biblio-year{display:none}.biblio-year.active{display:block}
+.subject-block{margin-bottom:28px}
+.subject-name{font-size:14px;font-weight:500;color:var(--accent);text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.subject-name::after{content:'';flex:1;height:0.5px;background:var(--border)}
+.crono-list{display:flex;flex-direction:column;gap:1px;background:var(--border);border:0.5px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:12px}
+.crono-item{background:white;padding:14px 20px;display:flex;align-items:flex-start;gap:16px}
+.crono-date{min-width:54px;font-size:13px;font-weight:500;color:var(--ink-muted);padding-top:2px;flex-shrink:0}
+.crono-badge{display:inline-block;font-size:10px;font-weight:500;letter-spacing:.05em;text-transform:uppercase;padding:2px 7px;border-radius:4px;margin-bottom:4px}
+.badge-clase{background:var(--accent-light);color:var(--accent)}
+.badge-parcial{background:#F5EDE5;color:#9A4A20}
+.badge-tp{background:#E8EEF5;color:#2A4A6E}
+.badge-feriado{background:#F0F0EC;color:#888}
+.badge-recuperatorio{background:#FEF3E2;color:#8A5A00}
+.badge-practica{background:#EEE8F5;color:#5A3A8A}
+.crono-content h4{font-size:13px;font-weight:500;color:var(--ink);margin-bottom:2px}
+.crono-content p{font-size:12px;color:var(--ink-muted);line-height:1.5}
+.crono-biblio{font-size:11px;color:var(--accent);margin-top:3px}
+.filter-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:24px}
+.filter-tab{padding:6px 14px;border-radius:20px;font-size:13px;cursor:pointer;border:0.5px solid var(--border);background:white;color:var(--ink-light);transition:all .15s}
+.filter-tab.active{background:var(--accent);color:white;border-color:var(--accent);font-weight:500}
+.filter-tab:hover:not(.active){border-color:var(--ink);color:var(--ink)}
+.prof-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.prof-card{background:white;border:0.5px solid var(--border);border-radius:var(--radius);padding:22px;transition:border-color .15s}
+.prof-card:hover{border-color:var(--border-strong)}
+.prof-avatar{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'DM Serif Display',serif;font-size:18px;margin-bottom:14px;color:white}
+.av-0{background:#2E5C3A}.av-1{background:#C4784A}.av-2{background:#2A5C8A}.av-3{background:#6A4A9C}.av-4{background:#2A7A7A}.av-5{background:#9C4A5A}.av-6{background:#5A6A2A}.av-7{background:#8A3A3A}.av-8{background:#3A5A8A}.av-9{background:#7A4A2A}
+.prof-card h3{font-size:15px;font-weight:500;color:var(--ink);margin-bottom:2px}
+.prof-subject{font-size:12px;color:var(--accent);font-weight:500;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+.prof-role{font-size:12px;color:var(--ink-muted);margin-bottom:12px}
+.prof-contact{display:flex;flex-direction:column;gap:6px}
+.prof-contact a{font-size:13px;color:var(--ink-light);text-decoration:none;display:flex;align-items:center;gap:8px;transition:color .15s}
+.prof-contact a:hover{color:var(--accent)}
+.contact-icon{width:20px;height:20px;border-radius:4px;background:#E8EEF5;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
+.promo-tag{display:inline-block;font-size:11px;padding:2px 8px;border-radius:4px;margin-top:8px}
+.promo-directa{background:var(--accent-light);color:var(--accent)}.promo-indirecta{background:var(--warm-light);color:var(--warm)}
+.recomendacion{background:var(--cream);border-left:2px solid var(--accent);padding:10px 14px;border-radius:0 6px 6px 0;margin-top:10px;font-size:12px;color:var(--ink-light);line-height:1.6;font-style:italic}
+.pachin-header{max-width:900px;margin:0 auto;padding:60px 2rem 40px;text-align:center}
+.pachin-badge{width:72px;height:72px;background:var(--accent);border-radius:20px;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;position:relative}
+.pachin-badge::after{content:'';position:absolute;bottom:-3px;right:-3px;width:18px;height:18px;background:#7AE896;border-radius:50%;border:3px solid var(--cream)}
+.pachin-header h1{font-family:'DM Serif Display',serif;font-size:40px;margin-bottom:12px}
+.pachin-header>p{font-size:16px;color:var(--ink-muted);max-width:480px;margin:0 auto 32px;line-height:1.7}
+.pachin-open-btn{display:inline-flex;align-items:center;gap:10px;background:var(--accent);color:white;padding:16px 32px;border-radius:40px;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:500;text-decoration:none;transition:opacity .15s;margin-bottom:48px}
+.pachin-open-btn:hover{opacity:.85}
+.pachin-features{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;max-width:700px;margin:0 auto;text-align:left}
+.pachin-feature{background:white;border:0.5px solid var(--border);border-radius:var(--radius);padding:20px}
+.feat-icon{font-size:22px;margin-bottom:10px}
+.pachin-feature h3{font-size:14px;font-weight:500;color:var(--ink);margin-bottom:4px}
+.pachin-feature p{font-size:13px;color:var(--ink-muted);line-height:1.5}
+footer{border-top:0.5px solid var(--border);padding:32px 2rem;max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.footer-brand{font-family:'DM Serif Display',serif;font-size:16px}
+.footer-text{font-size:12px;color:var(--ink-muted)}
+@media(max-width:640px){nav{padding:0 1rem}.nav-links{display:none}.hero{padding:48px 1rem 40px}section{padding:0 1rem 48px}.stats-bar{grid-template-columns:1fr 1fr;padding:0 1rem;background:none;border:none}.stat-item{border:0.5px solid var(--border);border-radius:var(--radius-sm)}footer{padding:24px 1rem}.pachin-header{padding:40px 1rem 32px}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">
+    <div class="nav-logo">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 3C6.13 3 3 6.13 3 10s3.13 7 7 7 7-3.13 7-7-3.13-7-7-7zm0 2a3 3 0 110 6 3 3 0 010-6zm0 10a5 5 0 01-4.24-2.34C7.1 12.25 8.47 12 10 12s2.9.25 4.24.66A5 5 0 0110 15z" fill="white"/></svg>
+    </div>
+    <div class="nav-title">Psicología UCC<span>Asesoramiento Académico</span></div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#" class="active" onclick="showPage('home',this)">Inicio</a></li>
+    <li><a href="#" onclick="showPage('blog',this)">Blog</a></li>
+    <li><a href="#" onclick="showPage('materias',this)">Materias</a></li>
+    <li><a href="#" onclick="showPage('profesores',this)">Profesores</a></li>
+    <li><a href="https://gemini.google.com/gem/11Aqw8vLHJK-OeH4pHaNgL-OYUN03NxXX?usp=sharing" target="_blank" class="nav-pachin"><span class="pachin-dot"></span>Pachín ↗</a></li>
+  </ul>
+</nav>
+
+<!-- HOME -->
+<div id="page-home" class="page active">
+  <div class="hero">
+    <div class="hero-tag"><svg width="10" height="10" viewBox="0 0 10 10"><circle cx="5" cy="5" r="5" fill="var(--accent)"/></svg>Universidad Católica de Córdoba</div>
+    <h1>Tu guía <em>académica</em> en Psicología</h1>
+    <p>Cronogramas reales, bibliografía oficial, contacto docente y Pachín — tu asistente de IA para navegar la carrera.</p>
+    <div class="hero-ctas">
+      <a href="https://gemini.google.com/gem/11Aqw8vLHJK-OeH4pHaNgL-OYUN03NxXX?usp=sharing" target="_blank" class="btn-primary"><span class="pachin-dot"></span>Hablar con Pachín</a>
+      <button class="btn-secondary" onclick="showPage('materias',null)">Ver materias →</button>
+    </div>
+  </div>
+  <div class="stats-bar">
+    <div class="stat-item"><div class="stat-number">5</div><div class="stat-label">Años de carrera</div></div>
+    <div class="stat-item"><div class="stat-number">30+</div><div class="stat-label">Docentes registrados</div></div>
+    <div class="stat-item"><div class="stat-number">24h</div><div class="stat-label">Pachín disponible</div></div>
+  </div>
+  <section>
+    <div class="section-header"><h2 class="section-title">¿Qué encontrás aquí?</h2></div>
+    <div class="cards-grid">
+      <div class="card" onclick="showPage('blog',null)" style="cursor:pointer"><div class="card-icon green">📝</div><span class="card-tag tag-green">Blog</span><h3>Artículos y novedades</h3><p>Publicaciones académicas, consejos de estudio y actualizaciones de la carrera.</p></div>
+      <div class="card" onclick="showPage('materias',null)" style="cursor:pointer"><div class="card-icon warm">📅</div><span class="card-tag tag-warm">Materias</span><h3>Cronogramas y bibliografía</h3><p>Fechas de parciales, TPs, contenidos por clase y bibliografía de 7 materias.</p></div>
+      <div class="card" onclick="showPage('profesores',null)" style="cursor:pointer"><div class="card-icon blue">👩‍🏫</div><span class="card-tag tag-blue">Profesores</span><h3>Directorio docente</h3><p>Nombre, función, correo y recomendaciones de alumnos para cada docente.</p></div>
+      <div class="card" onclick="showPage('pachin',null)" style="cursor:pointer"><div class="card-icon green">🤖</div><span class="card-tag tag-green">IA</span><h3>Pachín, tu asistente</h3><p>Consultale qué se dicta, quién lo da, cómo contactar a un profe o dudas del programa.</p></div>
+    </div>
+  </section>
+  <section>
+    <div class="section-header"><h2 class="section-title">Últimas entradas del blog</h2><span class="section-link" onclick="showPage('blog',null)">Ver todas →</span></div>
+    <div class="blog-list">
+      <div class="blog-item" onclick="showPage('blog',null)"><div class="blog-date"><div class="day">18</div><div class="month">Abr</div></div><div class="blog-content"><h3>Cómo encarar el parcial de Psicología General</h3><p>Estrategias de estudio, tiempos de lectura y consejos de ex alumnos.</p></div><div class="blog-arrow">→</div></div>
+      <div class="blog-item" onclick="showPage('blog',null)"><div class="blog-date"><div class="day">10</div><div class="month">Abr</div></div><div class="blog-content"><h3>Novedades en el programa de Metodología II 2026</h3><p>Cambios en la bibliografía y nuevas fechas de evaluación.</p></div><div class="blog-arrow">→</div></div>
+      <div class="blog-item" onclick="showPage('blog',null)"><div class="blog-date"><div class="day">02</div><div class="month">Abr</div></div><div class="blog-content"><h3>Recursos gratuitos de Neurobiología para primer año</h3><p>Una selección de papers, videos y podcasts recomendados por el equipo docente.</p></div><div class="blog-arrow">→</div></div>
+    </div>
+  </section>
+</div>
+
+<!-- BLOG -->
+<div id="page-blog" class="page">
+  <section style="padding-top:48px">
+    <div class="section-header"><h2 class="section-title">Blog académico</h2></div>
+    <div class="blog-list">
+      <div class="blog-item"><div class="blog-date"><div class="day">18</div><div class="month">Abr</div></div><div class="blog-content"><span class="card-tag tag-green" style="margin-bottom:6px">Estudio</span><h3>Cómo encarar el parcial de Psicología General</h3><p>Estrategias de estudio, tiempos de lectura y consejos de ex alumnos para las materias del primer año.</p></div><div class="blog-arrow">→</div></div>
+      <div class="blog-item"><div class="blog-date"><div class="day">10</div><div class="month">Abr</div></div><div class="blog-content"><span class="card-tag tag-warm" style="margin-bottom:6px">Programa</span><h3>Novedades en el programa de Metodología II 2026</h3><p>Cambios en la bibliografía, nuevas unidades y fechas de evaluación aprobadas por el departamento.</p></div><div class="blog-arrow">→</div></div>
+      <div class="blog-item"><div class="blog-date"><div class="day">02</div><div class="month">Abr</div></div><div class="blog-content"><span class="card-tag tag-blue" style="margin-bottom:6px">Recursos</span><h3>Recursos gratuitos de Neurobiología para primer año</h3><p>Una selección de papers, videos y podcasts recomendados por el equipo de Med. Abal y Dr. Jauregui.</p></div><div class="blog-arrow">→</div></div>
+      <div class="blog-item"><div class="blog-date"><div class="day">24</div><div class="month">Mar</div></div><div class="blog-content"><span class="card-tag tag-green" style="margin-bottom:6px">Orientación</span><h3>¿Qué hacer si desaprobás un parcial? Guía práctica</h3><p>Recuperatorios, plazos, condiciones de regularidad y cómo no perder el ritmo.</p></div><div class="blog-arrow">→</div></div>
+      <div class="blog-item"><div class="blog-date"><div class="day">15</div><div class="month">Mar</div></div><div class="blog-content"><span class="card-tag tag-warm" style="margin-bottom:6px">Bienestar</span><h3>Salud mental en la facultad: recursos de la UCC</h3><p>Servicio de orientación psicológica, talleres y grupos de pares disponibles este año.</p></div><div class="blog-arrow">→</div></div>
+      <div class="blog-item"><div class="blog-date"><div class="day">05</div><div class="month">Mar</div></div><div class="blog-content"><span class="card-tag tag-blue" style="margin-bottom:6px">Inicio</span><h3>Bienvenida 2026: todo lo que necesitás saber</h3><p>Calendario académico, inscripción a materias, sistema SIU Guaraní y contactos clave.</p></div><div class="blog-arrow">→</div></div>
+    </div>
+  </section>
+</div>
+
+<!-- MATERIAS -->
+<div id="page-materias" class="page">
+  <section style="padding-top:48px">
+    <div class="section-header"><h2 class="section-title">Materias y cronogramas</h2></div>
+    <div class="year-tabs" id="materia-tabs">
+      <div class="year-tab active" onclick="showMateria('metodologia',this)">Metodología II</div>
+      <div class="year-tab" onclick="showMateria('evolutiva',this)">Psic. Evolutiva</div>
+      <div class="year-tab" onclick="showMateria('clinica',this)">Psic. Clínica</div>
+      <div class="year-tab" onclick="showMateria('educacional',this)">Psic. Educacional</div>
+      <div class="year-tab" onclick="showMateria('juridica',this)">Psic. Jurídica</div>
+      <div class="year-tab" onclick="showMateria('organizacional',this)">Psic. Organizacional</div>
+      <div class="year-tab" onclick="showMateria('tyt3',this)">TyT Diagnóstico III</div>
+    </div>
+
+    <div class="biblio-year active" id="mat-metodologia">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;flex-wrap:wrap"><span class="card-tag tag-green" style="font-size:12px;padding:4px 10px">Año 2026</span><span class="card-tag tag-blue" style="font-size:12px;padding:4px 10px">Anual</span></div>
+      <div class="subject-block">
+        <div class="subject-name">Primer semestre</div>
+        <div class="crono-list">
+          <div class="crono-item"><div class="crono-date">13 Mar</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>Presentación. Síntesis de contenidos y modalidad de trabajo</h4></div></div>
+          <div class="crono-item"><div class="crono-date">20 Mar</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>U1: Modos de conocer e investigación científica</h4><div class="crono-biblio">Vasilachis; Hernández Sampieri</div></div></div>
+          <div class="crono-item"><div class="crono-date">27 Mar</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>U1: Paradigma interpretativo y métodos cualitativos</h4><div class="crono-biblio">Willis; Sautu</div></div></div>
+          <div class="crono-item"><div class="crono-date">03 Abr</div><div class="crono-content"><span class="crono-badge badge-feriado">Feriado</span><h4>Semana Santa</h4></div></div>
+          <div class="crono-item"><div class="crono-date">10 Abr</div><div class="crono-content"><span class="crono-badge badge-tp">TP Evaluativo</span><h4>Trabajo Práctico N° 1</h4></div></div>
+          <div class="crono-item"><div class="crono-date">17 Abr</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>U2: Perspectiva del sujeto y reflexividad</h4><div class="crono-biblio">Guber; Tello</div></div></div>
+          <div class="crono-item"><div class="crono-date">24 Abr</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>U2: Etnografía y cotidianidad</h4><div class="crono-biblio">Rockwell; Salgueiro</div></div></div>
+          <div class="crono-item"><div class="crono-date">08 May</div><div class="crono-content"><span class="crono-badge badge-tp">TP Evaluativo</span><h4>Trabajo Práctico N° 2</h4></div></div>
+          <div class="crono-item"><div class="crono-date">15 May</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>U2: Enfoques biográficos y estudio de caso cualitativo</h4><div class="crono-biblio">Lemus; Guevara y Ambort; Duran</div></div></div>
+          <div class="crono-item"><div class="crono-date">22 May</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>U2: Co-investigación e investigación acción participativa</h4><div class="crono-biblio">Video: Fals Borda</div></div></div>
+          <div class="crono-item"><div class="crono-date">29 May</div><div class="crono-content"><span class="crono-badge badge-parcial">Parcial</span><h4>Primer Parcial</h4></div></div>
+          <div class="crono-item"><div class="crono-date">05 Jun</div><div class="crono-content"><span class="crono-badge badge-practica">Taller</span><h4>Taller Trabajo Práctico N° 3</h4></div></div>
+          <div class="crono-item"><div class="crono-date">12 Jun</div><div class="crono-content"><span class="crono-badge badge-tp">TP Evaluativo</span><h4>TP N° 3 (Entrega)</h4></div></div>
+          <div class="crono-item"><div class="crono-date">19 Jun</div><div class="crono-content"><span class="crono-badge badge-tp">TP Evaluativo</span><h4>TP N° 3 (Revisiones)</h4></div></div>
+        </div>
+        <div class="subject-name" style="margin-top:20px">Segundo semestre</div>
+        <div class="crono-list">
+          <div class="crono-item"><div class="crono-date">07 Ago</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>U3: Técnicas cualitativas. Trabajo de campo. Registro y bitácora</h4><div class="crono-biblio">Rockwell; Da Matta</div></div></div>
+          <div class="crono-item"><div class="crono-date">14 Ago</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>U3: Análisis documental y métodos mixtos</h4><div class="crono-biblio">Yuni; Santos Pi-Puig</div></div></div>
+          <div class="crono-item"><div class="crono-date">21 Ago</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>U3: Observación participante. Entrevista en profundidad</h4><div class="crono-biblio">Guber</div></div></div>
+          <div class="crono-item"><div class="crono-date">28 Ago</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>U3–U4: Reflexividad y roles. Interpretación crítica</h4><div class="crono-biblio">Aliano et al.; Grüner</div></div></div>
+          <div class="crono-item"><div class="crono-date">04 Sep</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>U4: Codificación abierta, axial y selectiva</h4><div class="crono-biblio">Taylor y Bogdan; Coffey y Atkinson</div></div></div>
+          <div class="crono-item"><div class="crono-date">11 Sep</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>U4: Análisis de contenido. Texto y metatexto</h4><div class="crono-biblio">Ruiz Silva; Rapley</div></div></div>
+          <div class="crono-item"><div class="crono-date">18 Sep</div><div class="crono-content"><span class="crono-badge badge-parcial">Parcial</span><h4>Segundo Parcial</h4></div></div>
+          <div class="crono-item"><div class="crono-date">09 Oct</div><div class="crono-content"><span class="crono-badge badge-tp">TP Evaluativo</span><h4>Trabajo Práctico N° 4 (Entrega)</h4></div></div>
+          <div class="crono-item"><div class="crono-date">23 Oct</div><div class="crono-content"><span class="crono-badge badge-recuperatorio">Recuperatorio</span><h4>Recuperatorios Prácticos (1ra fecha)</h4></div></div>
+          <div class="crono-item"><div class="crono-date">30 Oct</div><div class="crono-content"><span class="crono-badge badge-recuperatorio">Recuperatorio</span><h4>Recuperatorios Parcial y Prácticos (2da fecha)</h4></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="biblio-year" id="mat-evolutiva">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;flex-wrap:wrap"><span class="card-tag tag-green" style="font-size:12px;padding:4px 10px">Año 2026</span><span class="card-tag tag-blue" style="font-size:12px;padding:4px 10px">Anual</span><span style="font-size:13px;color:var(--ink-muted)">Psicología de la Adultez y Senectud · Docente: Rodrigo Rapela</span></div>
+      <div class="subject-block">
+        <div class="subject-name">Primer semestre</div>
+        <div class="crono-list">
+          <div class="crono-item"><div class="crono-date">11 Mar</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>Presentación. El sentido del tiempo. Edades, cohortes, cambio y estabilidad</h4></div></div>
+          <div class="crono-item"><div class="crono-date">18 Mar</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>Mitos y prejuicios sobre el envejecimiento. El viejismo y la gerontofobia</h4><div class="crono-biblio">Buttler; Salvareza</div></div></div>
+          <div class="crono-item"><div class="crono-date">25 Mar</div><div class="crono-content"><span class="crono-badge badge-practica">Práctica</span><h4>Entrevista a un adulto. Role playing</h4></div></div>
+          <div class="crono-item"><div class="crono-date">08 Abr</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>Modelo SOC (Baltes). Arquitectura incompleta</h4></div></div>
+          <div class="crono-item"><div class="crono-date">06 May</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>Teoría epigenética de Erikson. Crisis de desarrollo</h4></div></div>
+          <div class="crono-item"><div class="crono-date">27 May</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>Amor e intimidad. Modelo de Bleichmar</h4></div></div>
+          <div class="crono-item"><div class="crono-date">03 Jun</div><div class="crono-content"><span class="crono-badge badge-tp">TP Evaluativo</span><h4>Entrega transcripción de Entrevista de Historia de Vida</h4></div></div>
+          <div class="crono-item"><div class="crono-date">17 Jun</div><div class="crono-content"><span class="crono-badge badge-tp">Clase/Entrega</span><h4>Generatividad vs Estancamiento. Anatomía de la generatividad (McAdams)</h4></div></div>
+        </div>
+        <div class="subject-name" style="margin-top:20px">Segundo semestre</div>
+        <div class="crono-list">
+          <div class="crono-item"><div class="crono-date">05 Ago</div><div class="crono-content"><span class="crono-badge badge-parcial">Parcial</span><h4>1era Evaluación Parcial</h4></div></div>
+          <div class="crono-item"><div class="crono-date">12 Ago</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>Duelos en adultez y vejez. La muerte</h4></div></div>
+          <div class="crono-item"><div class="crono-date">19 Ago</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>Sabiduría. Modelos teóricos. Kramer</h4></div></div>
+          <div class="crono-item"><div class="crono-date">02 Sep</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>Cambios cognitivos en el envejecimiento. Inteligencia, atención y memoria</h4></div></div>
+          <div class="crono-item"><div class="crono-date">16 Sep</div><div class="crono-content"><span class="crono-badge badge-practica">Práctica</span><h4>Demencias. Diagnóstico diferencial. Película: Por siempre Alice</h4></div></div>
+          <div class="crono-item"><div class="crono-date">23 Sep</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>Familia, abuelidad y selectividad socioemocional (Carstensen)</h4></div></div>
+          <div class="crono-item"><div class="crono-date">14 Oct</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>Redes de apoyo social en la vejez. Geriátricos e intervención comunitaria</h4></div></div>
+          <div class="crono-item"><div class="crono-date">28 Oct</div><div class="crono-content"><span class="crono-badge badge-parcial">Parcial</span><h4>2da Evaluación Parcial</h4></div></div>
+          <div class="crono-item"><div class="crono-date">11 Nov</div><div class="crono-content"><span class="crono-badge badge-recuperatorio">Recuperatorio</span><h4>Evaluación recuperatoria de parciales</h4></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="biblio-year" id="mat-clinica">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;flex-wrap:wrap"><span class="card-tag tag-warm" style="font-size:12px;padding:4px 10px">Año 2025</span><span class="card-tag tag-blue" style="font-size:12px;padding:4px 10px">Anual · Teórico/Práctico</span><span style="font-size:13px;color:var(--ink-muted)">Titular: Ana Silvia González</span></div>
+      <div class="subject-block">
+        <div class="subject-name">Primer semestre — Unidades I a IV</div>
+        <div class="crono-list">
+          <div class="crono-item"><div class="crono-date">10 Mar</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>U1: Aproximación a la Psicología Clínica. Perspectiva clínica</h4><div class="crono-biblio">Korinfeld (2022)</div></div></div>
+          <div class="crono-item"><div class="crono-date">17 Mar</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>U1: Campo, incumbencias, marco legal. La entrevista clínica</h4></div></div>
+          <div class="crono-item"><div class="crono-date">31 Mar</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>U1–U2: Clínica Ampliada. Enfoque de derechos. Análisis caso Jagten</h4><div class="crono-biblio">Ormart et al. (2015)</div></div></div>
+          <div class="crono-item"><div class="crono-date">07 Abr</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>U3: Diagnóstico en la práctica clínica</h4></div></div>
+          <div class="crono-item"><div class="crono-date">28 Abr</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>U3: Historia clínica. Familiograma/Genograma</h4><div class="crono-biblio">Musri (2019)</div></div></div>
+          <div class="crono-item"><div class="crono-date">12 May</div><div class="crono-content"><span class="crono-badge badge-parcial">Parcial</span><h4>1er Parcial — Cubre Unidades I, II y III</h4></div></div>
+          <div class="crono-item"><div class="crono-date">26 May</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>U4: Dispositivo analítico. Psicoterapia breve. Transferencia</h4></div></div>
+          <div class="crono-item"><div class="crono-date">02 Jun</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>U4: Modelos conductuales y cognitivos</h4></div></div>
+        </div>
+        <div class="subject-name" style="margin-top:20px">Segundo semestre — Unidades VI a VIII + RSU</div>
+        <div class="crono-list">
+          <div class="crono-item"><div class="crono-date">04 Ago</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>U7: Clínica según nivel psicopatológico. Clínica de los bordes</h4></div></div>
+          <div class="crono-item"><div class="crono-date">11–25 Ago</div><div class="crono-content"><span class="crono-badge badge-practica">RSU</span><h4>Programa de Responsabilidad Social Universitaria</h4></div></div>
+          <div class="crono-item"><div class="crono-date">01 Sep</div><div class="crono-content"><span class="crono-badge badge-parcial">Parcial</span><h4>2do Parcial — Informe. Cubre Unidades VI a VIII</h4></div></div>
+          <div class="crono-item"><div class="crono-date">20 Oct</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>U8: Ámbitos de intervención. Clínica de la urgencia</h4></div></div>
+          <div class="crono-item"><div class="crono-date">27 Oct</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>U8: Psicooncología y Cuidados Paliativos</h4></div></div>
+          <div class="crono-item"><div class="crono-date">10 Nov</div><div class="crono-content"><span class="crono-badge badge-tp">TP Evaluativo</span><h4>Presentación oral del TP Final Integrador</h4></div></div>
+          <div class="crono-item"><div class="crono-date">17 Nov</div><div class="crono-content"><span class="crono-badge badge-recuperatorio">Recuperatorio</span><h4>Recuperatorios parciales y TP integrador</h4></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="biblio-year" id="mat-educacional">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;flex-wrap:wrap"><span class="card-tag tag-green" style="font-size:12px;padding:4px 10px">Año 2026</span><span class="card-tag tag-blue" style="font-size:12px;padding:4px 10px">Anual · Viernes</span><span style="font-size:13px;color:var(--ink-muted)">Titular: Alejandra Iparraguirre</span></div>
+      <div class="subject-block">
+        <div class="subject-name">Módulos I y II — Primer semestre</div>
+        <div class="crono-list">
+          <div class="crono-item"><div class="crono-date">13 Mar</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>Presentación. Campo educativo y rol del psicólogo/a</h4></div></div>
+          <div class="crono-item"><div class="crono-date">20 Mar</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>Módulo I: Educación bancaria vs educación liberadora (Freire)</h4><div class="crono-biblio">Freire (2012); Pedagogía del oprimido Cap.II</div></div></div>
+          <div class="crono-item"><div class="crono-date">27 Mar</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>Módulo I: La escuela en la Modernidad. Foucault</h4><div class="crono-biblio">Foucault (2008) Vigilar y castigar; Pineau, Dussel y Caruso (2001)</div></div></div>
+          <div class="crono-item"><div class="crono-date">10 Abr</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>Módulo I: Dispositivos de poder. Capitales de Bourdieu</h4><div class="crono-biblio">Bourdieu (1997) Razones prácticas</div></div></div>
+          <div class="crono-item"><div class="crono-date">24 Abr</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>Módulo II: Epistemología y Psicología Genética. Piaget</h4><div class="crono-biblio">Castorina (2012)</div></div></div>
+          <div class="crono-item"><div class="crono-date">15 May</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>Módulo II: El sujeto del deseo. Transferencia docente-estudiante. Freud</h4><div class="crono-biblio">Cordié (1998); Freud (1978[1914])</div></div></div>
+          <div class="crono-item"><div class="crono-date">29 May</div><div class="crono-content"><span class="crono-badge badge-tp">Clase/Entrega</span><h4>Módulo II: Philippe Meirieu. Entrega TP 1</h4><div class="crono-biblio">Meirieu (1998) Frankenstein educador</div></div></div>
+          <div class="crono-item"><div class="crono-date">19 Jun</div><div class="crono-content"><span class="crono-badge badge-parcial">Parcial</span><h4>Primer Parcial — Módulos I y II</h4></div></div>
+        </div>
+        <div class="subject-name" style="margin-top:20px">Módulos III y IV — Segundo semestre</div>
+        <div class="crono-list">
+          <div class="crono-item"><div class="crono-date">07 Ago</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>Módulo III: Intervenciones del psicólogo en educación</h4><div class="crono-biblio">Lozano y Iparraguirre (2008)</div></div></div>
+          <div class="crono-item"><div class="crono-date">28 Ago</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>Módulo III: Paradigma de derechos. Despatologización de las infancias</h4><div class="crono-biblio">Coll (1999); Stolkiner (2012)</div></div></div>
+          <div class="crono-item"><div class="crono-date">18 Sep</div><div class="crono-content"><span class="crono-badge badge-tp">Clase/Entrega</span><h4>Módulo III: Éxito y fracaso escolar. Entrega TP 2</h4><div class="crono-biblio">Kaplan (1992)</div></div></div>
+          <div class="crono-item"><div class="crono-date">25 Sep</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>Módulo IV: Inclusión y exclusión educativa</h4><div class="crono-biblio">Skliar (2018); Nicastro y Greco (2009)</div></div></div>
+          <div class="crono-item"><div class="crono-date">23 Oct</div><div class="crono-content"><span class="crono-badge badge-parcial">Parcial</span><h4>Segundo Parcial — Módulos III y IV</h4></div></div>
+          <div class="crono-item"><div class="crono-date">13–20 Nov</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>Módulo IV: Educación Sexual Integral</h4><div class="crono-biblio">Morgade (2016)</div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="biblio-year" id="mat-juridica">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;flex-wrap:wrap"><span class="card-tag tag-green" style="font-size:12px;padding:4px 10px">Año 2026</span><span class="card-tag tag-blue" style="font-size:12px;padding:4px 10px">Anual · Teórico/Práctico</span></div>
+      <div class="subject-block">
+        <div class="subject-name">Primer semestre — Unidades 1 a 4</div>
+        <div class="crono-list">
+          <div class="crono-item"><div class="crono-date">19 Mar</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>U1: Psicología Jurídica. Violencia como problema de salud pública</h4><div class="crono-biblio">Puente de Camaño; OMS (2002)</div></div></div>
+          <div class="crono-item"><div class="crono-date">26 Mar</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>U1: Psicología Forense. Pericias. U2: Criminología</h4><div class="crono-biblio">Echeburúa et al. (2011); Marchiori (2004)</div></div></div>
+          <div class="crono-item"><div class="crono-date">16 Abr</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>U1: Imputabilidad e inimputabilidad. Peligrosidad. Valoración de riesgo</h4><div class="crono-biblio">Echeburúa et al. (2011); Pueyo y Redondo Illescas (2007)</div></div></div>
+          <div class="crono-item"><div class="crono-date">30 Abr</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>U2: Mediación. Ley 10.543. U3: Teorías psicológicas sobre la criminalidad</h4><div class="crono-biblio">Redondo Illescas y Garrido Genovés (2013)</div></div></div>
+          <div class="crono-item"><div class="crono-date">21 May</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>U4: Delitos contra la integridad sexual. Trata de personas</h4><div class="crono-biblio">Ley 25087; Barroso González (2015)</div></div></div>
+          <div class="crono-item"><div class="crono-date">04 Jun</div><div class="crono-content"><span class="crono-badge badge-parcial">Parcial</span><h4>Primer Parcial — Unidades 1, 2 y parte de 4</h4></div></div>
+          <div class="crono-item"><div class="crono-date">18 Jun</div><div class="crono-content"><span class="crono-badge badge-tp">TP Evaluativo</span><h4>1° TP Práctico Presencial — Delitos Internacionales, Trata de Personas</h4></div></div>
+        </div>
+        <div class="subject-name" style="margin-top:20px">Segundo semestre — Unidades 5 a 8</div>
+        <div class="crono-list">
+          <div class="crono-item"><div class="crono-date">06 Ago</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>U5: Psicosis y criminalidad. Aportes del Psicoanálisis</h4><div class="crono-biblio">Esbec y Echeburúa (2016); Freud (1968)</div></div></div>
+          <div class="crono-item"><div class="crono-date">13 Ago</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>U5: Abusadores sexuales. Personalidad psicopática</h4><div class="crono-biblio">Meléndez Cardona et al. (2014); Pozueco Romero et al. (2013)</div></div></div>
+          <div class="crono-item"><div class="crono-date">20 Ago</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>U7: Victimología. U6: Transgresión juvenil. Bowlby y Winnicott</h4><div class="crono-biblio">Marchiori (1999); Bowlby (1968)</div></div></div>
+          <div class="crono-item"><div class="crono-date">10 Sep</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>U7: Abuso sexual. Mujeres en situación de violencia</h4><div class="crono-biblio">Intebi (2011); Deza Villanueva (2012)</div></div></div>
+          <div class="crono-item"><div class="crono-date">17 Sep</div><div class="crono-content"><span class="crono-badge badge-tp">TP Evaluativo</span><h4>2° TP Práctico Presencial — Transgresión juvenil</h4></div></div>
+          <div class="crono-item"><div class="crono-date">01 Oct</div><div class="crono-content"><span class="crono-badge badge-parcial">Parcial</span><h4>Segundo Parcial — Unidades 5 y 7</h4></div></div>
+          <div class="crono-item"><div class="crono-date">22 Oct</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>U8: Cámara Gessell. Burnout profesional</h4><div class="crono-biblio">Giberti (2003); Arón y Llanos (2003)</div></div></div>
+          <div class="crono-item"><div class="crono-date">05 Nov</div><div class="crono-content"><span class="crono-badge badge-recuperatorio">Recuperatorio</span><h4>Recuperatorios parciales y trabajos prácticos</h4></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="biblio-year" id="mat-organizacional">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;flex-wrap:wrap"><span class="card-tag tag-green" style="font-size:12px;padding:4px 10px">Año 2026</span><span class="card-tag tag-blue" style="font-size:12px;padding:4px 10px">Anual</span></div>
+      <div class="subject-block">
+        <div class="subject-name">Primer semestre — Unidades 1 y 2</div>
+        <div class="crono-list">
+          <div class="crono-item"><div class="crono-date">17 Mar</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>U1: Identidad, sentido, proyecto, salud</h4><div class="crono-biblio">Romero</div></div></div>
+          <div class="crono-item"><div class="crono-date">31 Mar</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>U1: Trabajo y organizaciones en la era del conocimiento</h4><div class="crono-biblio">Jiménez Uribe</div></div></div>
+          <div class="crono-item"><div class="crono-date">14 Abr</div><div class="crono-content"><span class="crono-badge badge-tp">TP Evaluativo</span><h4>Trabajo Práctico 1 — Entrega y exposición oral</h4></div></div>
+          <div class="crono-item"><div class="crono-date">28 Abr</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>U2: Orientación, inserción y reconversión laboral</h4><div class="crono-biblio">Valle Osorio</div></div></div>
+          <div class="crono-item"><div class="crono-date">12 May</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>U2: Orientación a emprender. Proyecto emprendedor</h4><div class="crono-biblio">De Pablo Urban</div></div></div>
+          <div class="crono-item"><div class="crono-date">26 May</div><div class="crono-content"><span class="crono-badge badge-parcial">Parcial</span><h4>Primer Parcial — Unidades 1 y 2</h4></div></div>
+        </div>
+        <div class="subject-name" style="margin-top:20px">Segundo semestre — Unidades 3 y 4</div>
+        <div class="crono-list">
+          <div class="crono-item"><div class="crono-date">04 Ago</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>U3: El psicólogo como selector</h4><div class="crono-biblio">Souto</div></div></div>
+          <div class="crono-item"><div class="crono-date">18 Ago</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>U3: Clima, bienestar y gestión del conocimiento</h4><div class="crono-biblio">Marqués; Rodríguez</div></div></div>
+          <div class="crono-item"><div class="crono-date">25 Ago</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>U4: Abordaje multifocal para el cambio organizacional</h4><div class="crono-biblio">Montenegro y Schroeder</div></div></div>
+          <div class="crono-item"><div class="crono-date">08 Sep</div><div class="crono-content"><span class="crono-badge badge-tp">TP Evaluativo</span><h4>Trabajo Práctico 2 — Entrega y exposición oral</h4></div></div>
+          <div class="crono-item"><div class="crono-date">22 Sep</div><div class="crono-content"><span class="crono-badge badge-parcial">Parcial</span><h4>Segundo Parcial — Unidades 3 y 4</h4></div></div>
+          <div class="crono-item"><div class="crono-date">27 Oct</div><div class="crono-content"><span class="crono-badge badge-recuperatorio">Recuperatorio</span><h4>Recuperatorio Parcial</h4></div></div>
+          <div class="crono-item"><div class="crono-date">10 Nov</div><div class="crono-content"><span class="crono-badge badge-tp">Examen</span><h4>Promocionales — Exposición final</h4></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="biblio-year" id="mat-tyt3">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;flex-wrap:wrap"><span class="card-tag tag-warm" style="font-size:12px;padding:4px 10px">Año 2025</span><span class="card-tag tag-blue" style="font-size:12px;padding:4px 10px">Anual · 90 hs · Cátedra A</span><span style="font-size:13px;color:var(--ink-muted)">Titular: Mónica Alejandra Soave | JTP: Georgina Pana Tronca, Milagros Aro</span></div>
+      <div class="subject-block">
+        <div class="subject-name">Primer semestre</div>
+        <div class="crono-list">
+          <div class="crono-item"><div class="crono-date">11 Mar</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>Presentación. Aspectos éticos. Descripción de láminas</h4></div></div>
+          <div class="crono-item"><div class="crono-date">18 Mar</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>Administración. Consigna. Interrogatorio y examen de límites</h4></div></div>
+          <div class="crono-item"><div class="crono-date">25 Mar</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>Respuestas W</h4></div></div>
+          <div class="crono-item"><div class="crono-date">01 Abr</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>Respuestas de D, S y Do. Fórmulas</h4></div></div>
+          <div class="crono-item"><div class="crono-date">15 Abr</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>Forma. Integración caso Eugenia. Valor cualitativo</h4></div></div>
+          <div class="crono-item"><div class="crono-date">22 Abr</div><div class="crono-content"><span class="crono-badge badge-tp">TP Evaluativo</span><h4>1° TPE</h4></div></div>
+          <div class="crono-item"><div class="crono-date">29 Abr</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>M, FM y m</h4></div></div>
+          <div class="crono-item"><div class="crono-date">06 May</div><div class="crono-content"><span class="crono-badge badge-parcial">Parcial</span><h4>Primer Parcial</h4></div></div>
+          <div class="crono-item"><div class="crono-date">27 May</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>Color</h4></div></div>
+          <div class="crono-item"><div class="crono-date">03 Jun</div><div class="crono-content"><span class="crono-badge badge-tp">TP Evaluativo</span><h4>2do TPE — Integración modos de aprehensión con determinantes y fórmulas</h4></div></div>
+        </div>
+        <div class="subject-name" style="margin-top:20px">Segundo semestre</div>
+        <div class="crono-list">
+          <div class="crono-item"><div class="crono-date">05 Ago</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>Todos los determinantes. Color acromático</h4></div></div>
+          <div class="crono-item"><div class="crono-date">12 Ago</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>Claroscuro</h4></div></div>
+          <div class="crono-item"><div class="crono-date">19 Ago</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>Primeras fórmulas</h4></div></div>
+          <div class="crono-item"><div class="crono-date">23 Sep</div><div class="crono-content"><span class="crono-badge badge-clase">Clase</span><h4>Clasificación, cómputos y psicograma. Valor cualitativo</h4></div></div>
+          <div class="crono-item"><div class="crono-date">07 Oct</div><div class="crono-content"><span class="crono-badge badge-parcial">Parcial</span><h4>Segundo Parcial</h4></div></div>
+          <div class="crono-item"><div class="crono-date">14 Oct</div><div class="crono-content"><span class="crono-badge badge-tp">TP Evaluativo</span><h4>3er TPE — Integración determinantes y fórmulas</h4></div></div>
+          <div class="crono-item"><div class="crono-date">21 Oct</div><div class="crono-content"><span class="crono-badge badge-recuperatorio">Recuperatorio</span><h4>Recuperatorios Parciales</h4></div></div>
+          <div class="crono-item"><div class="crono-date">28 Oct</div><div class="crono-content"><span class="crono-badge badge-recuperatorio">Recuperatorio</span><h4>Recuperatorio de Trabajos Prácticos Evaluativos</h4></div></div>
+          <div class="crono-item"><div class="crono-date">04 Nov</div><div class="crono-content"><span class="crono-badge badge-clase">Cierre</span><h4>Consulta. Notas. Planillas finales</h4></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- PROFESORES -->
+<div id="page-profesores" class="page">
+  <section style="padding-top:48px">
+    <div class="section-header"><h2 class="section-title">Directorio docente</h2></div>
+    <div class="filter-tabs" id="year-filter-tabs">
+      <div class="filter-tab active" onclick="filterProfs('todos',this)">Todos</div>
+      <div class="filter-tab" onclick="filterProfs('1',this)">1.er año</div>
+      <div class="filter-tab" onclick="filterProfs('2',this)">2.do año</div>
+      <div class="filter-tab" onclick="filterProfs('3',this)">3.er año</div>
+      <div class="filter-tab" onclick="filterProfs('4',this)">4.to año</div>
+    </div>
+    <div class="prof-grid" id="prof-grid">
+      <div class="prof-card" data-year="1"><div class="prof-avatar av-0">PA</div><h3>Lic. Paula Aird</h3><div class="prof-subject">Teoría Psicoanalítica I</div><div class="prof-role">Titular</div><div class="prof-contact"><a href="mailto:2345006@ucc.edu.ar"><div class="contact-icon">✉</div>2345006@ucc.edu.ar</a></div><span class="promo-tag promo-indirecta">Promoción indirecta</span><div class="recomendacion">Requiere compromiso y lecturas al día. Llevá el diccionario de Laplanche, te va a ayudar mucho.</div></div>
+      <div class="prof-card" data-year="1"><div class="prof-avatar av-2">CP</div><h3>Dra. Cecilia Petit</h3><div class="prof-subject">Historia de la Psicología</div><div class="prof-role">Titular</div><div class="prof-contact"><a href="mailto:0722586@ucc.edu.ar"><div class="contact-icon">✉</div>0722586@ucc.edu.ar</a></div><span class="promo-tag promo-indirecta">Promoción indirecta</span><div class="recomendacion">Dinámica y rápida de comprender. A veces aburrida, pero entretenida.</div></div>
+      <div class="prof-card" data-year="1"><div class="prof-avatar av-4">CA</div><h3>Mgt. Cecilia Agüero</h3><div class="prof-subject">Introducción a la Psicología</div><div class="prof-role">Titular · Directora de Carrera</div><div class="prof-contact"><a href="mailto:psicologia.fcs@ucc.edu.ar"><div class="contact-icon">✉</div>psicologia.fcs@ucc.edu.ar</a></div><span class="promo-tag promo-directa">Promoción directa</span></div>
+      <div class="prof-card" data-year="1"><div class="prof-avatar av-5">CM</div><h3>Dra. Cecilia Moretti</h3><div class="prof-subject">Teoría Cognitiva y Comportamental</div><div class="prof-role">Titular</div><div class="prof-contact"><span style="font-size:13px;color:var(--ink-muted)">Sin correo disponible</span></div><span class="promo-tag promo-directa">Promoción directa</span><div class="recomendacion">La profe es una crack, súper entusiasta y organizada. Llevá las cosas al día.</div></div>
+      <div class="prof-card" data-year="1"><div class="prof-avatar av-6">CA</div><h3>Lic. Carlos Alsserborn</h3><div class="prof-subject">Problemática Filosófica</div><div class="prof-role">Titular</div><div class="prof-contact"><a href="mailto:9913062@ucc.edu.ar"><div class="contact-icon">✉</div>9913062@ucc.edu.ar</a></div><span class="promo-tag promo-directa">Promoción directa</span></div>
+      <div class="prof-card" data-year="1"><div class="prof-avatar av-7">SA</div><h3>Med. Sebastian Abal</h3><div class="prof-subject">Neurobiología</div><div class="prof-role">Titular</div><div class="prof-contact"><a href="mailto:2249075@ucc.edu.ar"><div class="contact-icon">✉</div>2249075@ucc.edu.ar</a></div><span class="promo-tag promo-indirecta">Promoción indirecta</span><div class="recomendacion">Nueva cátedra. Se recomienda hablar con el titular, es un genio para la pedagogía.</div></div>
+      <div class="prof-card" data-year="1"><div class="prof-avatar av-3">FB</div><h3>Lic. Flavio Borghi</h3><div class="prof-subject">Antropología Cultural</div><div class="prof-role">Titular</div><div class="prof-contact"><a href="mailto:0580125@ucc.edu.ar"><div class="contact-icon">✉</div>0580125@ucc.edu.ar</a></div><span class="promo-tag promo-indirecta">Promoción indirecta</span></div>
+      <div class="prof-card" data-year="1"><div class="prof-avatar av-8">PS</div><h3>Dra. Patricia Scherman</h3><div class="prof-subject">Metodología de la Investigación</div><div class="prof-role">Titular</div><div class="prof-contact"><a href="mailto:1335016@ucc.edu.ar"><div class="contact-icon">✉</div>1335016@ucc.edu.ar</a></div><span class="promo-tag promo-indirecta">Promoción indirecta</span></div>
+      <div class="prof-card" data-year="2"><div class="prof-avatar av-0">MS</div><h3>Dra. Mónica Soave</h3><div class="prof-subject">TyT Psicodiagnóstico I y III</div><div class="prof-role">Titular (Cátedra A)</div><div class="prof-contact"><a href="mailto:0722701@ucc.edu.ar"><div class="contact-icon">✉</div>0722701@ucc.edu.ar</a></div><span class="promo-tag promo-directa">Promoción directa</span><div class="recomendacion">Llevá las lecturas al día. Comprende bien los modelos de análisis y los tipos de entrevistas.</div></div>
+      <div class="prof-card" data-year="2"><div class="prof-avatar av-1">MT</div><h3>Dr. Mario Trogolo</h3><div class="prof-subject">Estadística Descriptiva y Diferencial</div><div class="prof-role">Titular</div><div class="prof-contact"><a href="mailto:1433100@ucc.edu.ar"><div class="contact-icon">✉</div>1433100@ucc.edu.ar</a></div><span class="promo-tag promo-directa">Promoción directa</span></div>
+      <div class="prof-card" data-year="2"><div class="prof-avatar av-2">EJ</div><h3>Mgter. Elizabeth Jorge</h3><div class="prof-subject">Teoría Psicoanalítica II</div><div class="prof-role">Titular</div><div class="prof-contact"><a href="mailto:1226082@ucc.edu.ar"><div class="contact-icon">✉</div>1226082@ucc.edu.ar</a></div><span class="promo-tag promo-directa">Promoción directa</span><div class="recomendacion">No esperes que las profes te dicten las respuestas. Buscá en la biblioteca, hay libros de sobra.</div></div>
+      <div class="prof-card" data-year="2"><div class="prof-avatar av-3">PP</div><h3>Dra. Patricia Paolantonio</h3><div class="prof-subject">Psicología de la Niñez</div><div class="prof-role">Titular</div><div class="prof-contact"><a href="mailto:2328333@ucc.edu.ar"><div class="contact-icon">✉</div>2328333@ucc.edu.ar</a></div><span class="promo-tag promo-indirecta">Promoción indirecta</span><div class="recomendacion">Llevá bien los autores: Bleichmar, Piaget, Freud. Siempre los suelen tomar.</div></div>
+      <div class="prof-card" data-year="2"><div class="prof-avatar av-4">PM</div><h3>Dr. Pablo Marchetti</h3><div class="prof-subject">Neurociencia Aplicada</div><div class="prof-role">Titular</div><div class="prof-contact"><a href="mailto:0823491@ucc.edu.ar"><div class="contact-icon">✉</div>0823491@ucc.edu.ar</a></div><span class="promo-tag promo-directa">Promoción directa</span><div class="recomendacion">Sabe mucho, lee los powers y los papers. Las clases son rápidas y dinámicas.</div></div>
+      <div class="prof-card" data-year="2"><div class="prof-avatar av-5">MA</div><h3>Lic. Miriam Abecasis</h3><div class="prof-subject">Teoría Sistémica</div><div class="prof-role">Titular</div><div class="prof-contact"><a href="mailto:myriam.abecasis@ucc.edu.ar"><div class="contact-icon">✉</div>myriam.abecasis@ucc.edu.ar</a></div><span class="promo-tag promo-indirecta">Promoción indirecta</span><div class="recomendacion">Hablá con Facundo Plomer (ayudante), sabe mucho de la materia.</div></div>
+      <div class="prof-card" data-year="2"><div class="prof-avatar av-6">AF</div><h3>Dr. Adrián Fantini</h3><div class="prof-subject">Psicopatología General</div><div class="prof-role">Titular</div><div class="prof-contact"><a href="mailto:adrianfantini@gmail.com"><div class="contact-icon">✉</div>adrianfantini@gmail.com</a></div><span class="promo-tag promo-indirecta">Promoción indirecta</span></div>
+      <div class="prof-card" data-year="3"><div class="prof-avatar av-0">GJ</div><h3>Dr. Gabriel Jauregui</h3><div class="prof-subject">Neuropsicología · Psicometría</div><div class="prof-role">Titular</div><div class="prof-contact"><a href="mailto:1306819@ucc.edu.ar"><div class="contact-icon">✉</div>1306819@ucc.edu.ar</a></div><span class="promo-tag promo-directa">Promoción directa</span></div>
+      <div class="prof-card" data-year="3"><div class="prof-avatar av-1">GC</div><h3>Mgt. Griselda Cardozo</h3><div class="prof-subject">Psicología de la Adolescencia</div><div class="prof-role">Titular</div><div class="prof-contact"><a href="mailto:0817949@ucc.edu.ar"><div class="contact-icon">✉</div>0817949@ucc.edu.ar</a></div><div class="recomendacion">Griselda y la cátedra son unas genias. Llevá las lecturas al día.</div></div>
+      <div class="prof-card" data-year="3"><div class="prof-avatar av-2">CB</div><h3>Mgt. Cecilia Emma Berra</h3><div class="prof-subject">Psicología Sanitaria</div><div class="prof-role">Titular</div><div class="prof-contact"><a href="mailto:1228153@ucc.edu.ar"><div class="contact-icon">✉</div>1228153@ucc.edu.ar</a></div><span class="promo-tag promo-indirecta">Promoción indirecta</span></div>
+      <div class="prof-card" data-year="3"><div class="prof-avatar av-3">MA</div><h3>Mgt. Milagros Aguero Sepúlveda</h3><div class="prof-subject">Psicología Social y Comunitaria</div><div class="prof-role">Titular</div><div class="prof-contact"><a href="mailto:1866499@ucc.edu.ar"><div class="contact-icon">✉</div>1866499@ucc.edu.ar</a></div><span class="promo-tag promo-indirecta">Promoción indirecta</span></div>
+      <div class="prof-card" data-year="4"><div class="prof-avatar av-0">AG</div><h3>Ana Silvia González</h3><div class="prof-subject">Psicología Clínica</div><div class="prof-role">Titular</div><div class="prof-contact"><a href="mailto:092008@ucc.edu.ar"><div class="contact-icon">✉</div>092008@ucc.edu.ar</a></div><span class="promo-tag promo-indirecta">Promoción indirecta</span></div>
+      <div class="prof-card" data-year="4"><div class="prof-avatar av-1">AI</div><h3>Alejandra Iparraguirre</h3><div class="prof-subject">Psicología Educacional</div><div class="prof-role">Titular</div><div class="prof-contact"><a href="mailto:Alejandra.Iparraguirre@ucc.edu.ar"><div class="contact-icon">✉</div>Alejandra.Iparraguirre@ucc.edu.ar</a></div></div>
+      <div class="prof-card" data-year="4"><div class="prof-avatar av-2">RR</div><h3>Rodrigo Rapela</h3><div class="prof-subject">Psicología de la Adultez</div><div class="prof-role">Titular</div><div class="prof-contact"><a href="mailto:rodrigo.rapela@ucc.edu.ar"><div class="contact-icon">✉</div>rodrigo.rapela@ucc.edu.ar</a></div></div>
+    </div>
+    <div style="margin-top:32px;padding:20px;background:white;border:0.5px solid var(--border);border-radius:var(--radius)">
+      <div style="font-size:13px;font-weight:500;color:var(--ink);margin-bottom:6px">Secretaría de la carrera</div>
+      <a href="mailto:secretaria.psicologia.fcs@ucc.edu.ar" style="font-size:13px;color:var(--accent);text-decoration:none;display:block;margin-bottom:4px">secretaria.psicologia.fcs@ucc.edu.ar</a>
+      <div style="font-size:12px;color:var(--ink-muted)">Directora de Carrera: Mgt. Cecilia Agüero — psicologia.fcs@ucc.edu.ar</div>
+    </div>
+  </section>
+</div>
+
+<!-- PACHÍN -->
+<div id="page-pachin" class="page">
+  <div class="pachin-header">
+    <div class="pachin-badge">
+      <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="14" r="7" stroke="white" stroke-width="2"/><path d="M6 30c0-5.523 5.373-10 12-10s12 4.477 12 10" stroke="white" stroke-width="2" stroke-linecap="round"/><circle cx="15" cy="13" r="1.5" fill="white"/><circle cx="21" cy="13" r="1.5" fill="white"/><path d="M15 17c.8 1.2 5.2 1.2 6 0" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </div>
+    <h1>Hola, soy Pachín 👋</h1>
+    <p>Soy tu asistente académico para la carrera de Psicología en la UCC. Preguntame sobre materias, profesores, programas o cualquier duda de la carrera.</p>
+    <a href="https://gemini.google.com/gem/11Aqw8vLHJK-OeH4pHaNgL-OYUN03NxXX?usp=sharing" target="_blank" class="pachin-open-btn">
+      <span class="pachin-dot"></span>
+      Abrir Pachín
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 13L13 3M13 3H7M13 3v6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    <div class="pachin-features">
+      <div class="pachin-feature"><div class="feat-icon">📅</div><h3>Contenido por clase</h3><p>Consultá qué se dicta en cada clase y qué bibliografía usar.</p></div>
+      <div class="pachin-feature"><div class="feat-icon">👩‍🏫</div><h3>Profesores</h3><p>Nombres, correos y recomendaciones de alumnos sobre cada docente.</p></div>
+      <div class="pachin-feature"><div class="feat-icon">📋</div><h3>Programa completo</h3><p>Dudas sobre unidades, parciales, TPs y condiciones de cada materia.</p></div>
+      <div class="pachin-feature"><div class="feat-icon">🎓</div><h3>Consejos académicos</h3><p>Tips de estudio, recursos y orientación para la cursada.</p></div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-brand">La Pachanga</div>
+  <div class="footer-text">Asesoramiento Académico en tu vida universitaria · <a href="mailto:secretaria.psicologia.fcs@ucc.edu.ar" style="color:var(--ink-muted)">Secretaría</a></div>
+</footer>
+
+<script>
+function showPage(id, el) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  if (el) el.classList.add('active');
+  window.scrollTo(0, 0);
+}
+function showMateria(id, el) {
+  document.querySelectorAll('.biblio-year').forEach(y => y.classList.remove('active'));
+  document.getElementById('mat-' + id).classList.add('active');
+  document.querySelectorAll('#materia-tabs .year-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+}
+function filterProfs(year, el) {
+  document.querySelectorAll('#year-filter-tabs .filter-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  document.querySelectorAll('#prof-grid .prof-card').forEach(card => {
+    card.style.display = (year === 'todos' || card.dataset.year === year) ? '' : 'none';
+  });
+}
+</script>
+</body>
+</html>
